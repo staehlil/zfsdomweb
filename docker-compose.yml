@@ -1,0 +1,64 @@
+services:
+  client:
+    image: ghcr.io/staehlil/zfsdomweb/client:${COMMIT:-latest}
+    env_file: .env
+    environment:
+      - PORT_CLIENT=${PORT_CLIENT:-3001}
+    build:
+      context: ./client/
+    networks:
+      - default
+    restart: unless-stopped
+
+  server:
+    image: ghcr.io/staehlil/zfsdomweb/server:${COMMIT:-latest}
+    env_file: .env
+    environment:
+      - PORT_SERVER=${PORT_SERVER:-3000}
+      - APP_USER=${APP_USER:-admin}
+      - ADMIN_PWD=${ADMIN_PWD:-SECURE_PASSWORD}
+    build:
+      context: ./server/
+    networks:
+      - default
+    restart: unless-stopped
+
+  mariadb:
+    image: ghcr.io/staehlil/zfsdomweb/mariadb:${COMMIT:-latest}
+    env_file: .env
+    build:
+      context: ./mariadb/
+      args:
+        DB_NAME: $DB_NAME
+        DB_NETWORK: $DB_NETWORK
+        DB_USER: $DB_USER
+        DB_PASS: $DB_PASS
+    networks:
+      - default
+    restart: unless-stopped
+    volumes:
+      - mysqldata:/var/lib/mysql
+
+  proxy:
+    image: ghcr.io/staehlil/zfsdomweb/proxy:${COMMIT:-latest}
+    env_file: .env
+    environment:
+      - CLIENT_HOSTNAME=${CLIENT_HOSTNAME:-client}
+    build:
+      context: ./proxy/
+    networks:
+      - traefik
+      - default
+    restart: unless-stopped
+    expose:
+      - 80
+    labels:
+      - traefik.http.routers.zfsdomweb.rule=Host(`${TRAEFIK_HOSTNAME:-myhost.com}`)
+      - traefik.http.routers.zfsdomweb.tls=true
+      - traefik.http.routers.zfsdomweb.tls.certresolver=${TRAEFIK_CERTRESOLVER:-myresolver}
+
+volumes:
+  mysqldata:
+networks:
+  traefik:
+    external: true

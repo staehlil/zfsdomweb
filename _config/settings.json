@@ -1,0 +1,16 @@
+{
+  "hosts": {
+    "machine01": {
+      "external": "machine01.myhosts.net:2331",
+      "internal": "192.168.19.1"
+    },
+    "machine02": {
+      "external": "machine02.myhosts.net:2332",
+      "internal": "192.168.19.2"
+    },
+    "machine03": {
+      "external": "machine03.myhosts.net:2336",
+      "internal": "192.168.19.3"
+    }
+  }
+}
