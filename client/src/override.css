@@ -1,0 +1,197 @@
+* {
+    border-radius:0!important;
+}
+.p-tabmenu .pi {
+    font-size:1.5rem!important;
+}
+td.hide, th.hide {
+    display:none
+}
+/* responsiveness / horizontal scrollbar fix ---> */
+.fullscreen-table.p-datatable-responsive-scroll {
+    height: 0;
+}
+/* <--- */
+.p-breadcrumb {
+    background: unset;
+}
+input.p-inputtext.search {
+    width: 200px;
+}
+@media screen and (max-width: 767px) {
+    input.p-inputtext.search {
+        width: 150px;
+    }
+    input.p-inputtext.search:not(:focus) {
+        width: 90px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .p-paginator-page.p-paginator-element.p-link:not(.p-highlight) {
+        display: none;
+    }
+    .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link .p-menuitem-icon {
+        margin-right:0;
+    }
+}
+.p-breadcrumb li:not(.p-breadcrumb-chevron) {
+    cursor:pointer
+}
+@media screen and (max-width: 767px) {
+    .p-breadcrumb li:not(:last-child) {
+        display: none;
+    }
+}
+.text-xxl {
+    font-size: 10rem;
+}
+.p-datatable .p-datatable-tbody > tr > td.column-button {
+    padding-left: 0.25rem;
+    width: 0;
+}
+.p-datatable .p-datatable-tbody > tr > td.column-button:not(:last-child) {
+    padding-right: 0;
+}
+
+.html-view p:first-child {
+    margin-top:0
+}
+.html-view p:last-child {
+    margin-bottom:0
+}
+
+cf-content label {
+    font-weight:bold
+}
+
+.launchpad-dialog .p-dialog-header {
+    display:none!important;
+}
+.launchpad-dialog .p-dialog-content, .disclaimer-dialog .p-dialog-content {
+    padding:0!important;
+}
+.launchpad-dialog .p-dialog-footer {
+    padding:1rem!important;
+}
+.launchpad-dialog .p-tabview-nav {
+    overflow-x:auto;
+    overflow-y:hidden;
+}
+.disclaimer-dialog .p-dialog-header {
+    padding:1rem;
+    background-color:#59262a;
+    color:#ffffff;
+}
+
+.disclaimer-dialog .p-dialog-header button  {
+    background-color:#59262a;
+}
+
+.disclaimer-dialog .p-dialog-header button.p-dialog-header-icon:focus {
+    box-shadow:none;
+}
+
+.confirm-domain-dialog {
+    max-width:600px!important;
+}
+
+.confirm-domain-dialog .code {
+    font-family: Courier, serif;
+    font-size: smaller;
+}
+
+.launchpad-containers .p-tabview-panels {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+@media screen and (min-width: 576px) {
+    blockquote {
+        border-left: 4px solid #59262a;
+        padding-left: 1rem;
+    }
+}
+blockquote {
+    margin: 0;
+}
+blockquote p:first-child {
+    margin-top: 0;
+}
+
+.dialog-register {
+    padding: 0!important;
+}
+
+@font-face {
+    font-family: 'Pixel Operator';
+    src: url('assets/fonts/PixelOperator.woff2') format('woff2'),
+    url('assets/fonts/PixelOperator.woff') format('woff'),
+    url('assets/fonts/PixelOperator.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url('assets/fonts/PressStart2P.woff2') format('woff2'),
+    url('assets/fonts/PressStart2P.woff') format('woff'),
+    url('assets/fonts/PressStart2P.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+.pixel-font {
+    font-family: "Pixel Operator"
+}
+.pixel-font-1 {
+    font-family: "Press Start 2P"
+}
+
+table.p-datatable-table tr>td:first-child:not(.p-selection-column) {
+    padding-left:0
+}
+
+.p-datatable:not(.category-table) tr>td:first-child:not(.p-selection-column) {
+    padding-left: 1rem;
+}
+
+.p-sidebar .p-sidebar-content, .p-sidebar .p-sidebar-header {
+    padding:0!important;
+}
+.p-sidebar-bottom .p-sidebar {
+    height: unset!important;
+}
+
+img.pixelart {
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: pixelated;
+    image-rendering: optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor
+}
+
+a.p-menuitem-link {
+    color:#495057;
+}
+
+.no-labels .p-datatable-thead {
+    display:none
+}
+
+.blocks-editor-table td.selected {
+    background-color:rgba(149,109,197,0.7);
+}
+.blocks-editor-table td:not(.selected):hover {
+    background-color:rgba(149,109,197,0.3) !important
+}
+
+.p-fileupload .p-fileupload-buttonbar {
+    border:none;
+    background: transparent;
+}
+
+.p-splitbutton>.p-button:first-child {
+    padding-right:0.25rem!important;
+}

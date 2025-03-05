@@ -1,0 +1,6 @@
+.svn
+.svnignore
+.idea
+node_modules
+build
+server/dist
