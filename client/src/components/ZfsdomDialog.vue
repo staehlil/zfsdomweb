@@ -21,9 +21,14 @@
           <Button label="Transfer" :disabled="!destHost" :icon="'pi '+(transferInProgress ? 'pi-times' : 'pi-arrow-up-right')" @click="!transferInProgress ? requestTransfer() : requestAbort()" :severity="transferInProgress ? 'danger' : ''" class="flex-shrink-1 w-auto p-button-icon-only px-2" />
         </div>
       </div>
-      <div class="field col-12" v-if="activeCommandIndex<2">
+      <div class="field col-12" v-if="activeCommandIndex===1 && useMap">
+        <label class="mb-1">Apply device mapping:</label>
+        <InputText v-model="map" placeholder="dev:enp1s0:eno1,dev:enp1s1:eno2" class="focus:z-5"></InputText>
+      </div>
+      <div class="field col-12 flex flex-row align-items-center" v-if="activeCommandIndex<2">
         <Checkbox v-model="dryRun" :binary="true" :disabled="transferInProgress" inputId="dryRun" /><label for="dryRun" class="ml-1 my-0 cursor-pointer select-none">Dry Run</label>
         <Checkbox class="ml-2" v-model="force" :binary="true" :disabled="transferInProgress" inputId="force" /><label for="force" class="ml-1 my-0 cursor-pointer select-none">Force</label>
+        <div class="flex flex-row flex-nowrap align-items-center"><Checkbox v-if="activeCommandIndex===1" class="ml-2" v-model="useMap" :binary="true" :disabled="transferInProgress" inputId="useMap" /><label v-if="activeCommandIndex===1"  for="useMap" class="ml-1 my-0 cursor-pointer select-none">Device Mapping</label></div>
       </div>
       <div class="field col-12" v-else>
         <label><i v-if="transferInProgress" class="pi pi-spinner pi-spin"/> Execut{{transferInProgress ? 'ing' : 'e'}} domain operation on <b>{{domains?.[0]}}</b>:</label>
@@ -71,7 +76,9 @@ export default {
       onZfsdomDone:()=>{},
       activeCommandIndex:0,
       listCommands:[{name:"transfer"},{name:"migrate"},{name:"virsh"}],
-      domainOperation:null
+      domainOperation:null,
+      useMap:false,
+      map:""
     }
   },
   async created() {
@@ -161,7 +168,7 @@ export default {
       this.transferStarted=true;
       let destHost = this.mapHosts[this.destHost];
       const action = this.listCommands[this.activeCommandIndex];
-      ({uuid:this.uuid} = (await zfsdomService.run(action.name, this.srcHost.external, this.domains,`${destHost.external}[${destHost.internal||this.destHost}]${this.destPath ? `:${this.destPath}` : ""}`,this.dryRun,this.force))||{});
+      ({uuid:this.uuid} = (await zfsdomService.run(action.name, this.srcHost.external, this.domains,`${destHost.external}[${destHost.internal||this.destHost}]${this.destPath ? `:${this.destPath}` : ""}`,this.activeCommandIndex===1 && this.useMap ? this.map : null,this.dryRun,this.force))||{});
       this.transferInProgress=true;
     },
     async abort() {
@@ -213,6 +220,9 @@ export default {
       this.destHost=destHost?.name;
       this.dryRun = config.dryRun;
       this.force = config.force;
+      this.map = config.map;
+      if (this.map)
+        this.useMap = true;
       if (cmdIndex>1)
         this.domainOperation = (config.action||"").replace(/^virsh\s+/,"");
     },

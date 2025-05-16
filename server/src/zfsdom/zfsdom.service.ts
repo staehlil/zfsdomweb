@@ -17,12 +17,12 @@ export class ZfsdomService {
       throw new HttpException(error.toString(),500,{  cause: new Error('Cause Error'), });
     }
   }
-  async run(userId,config:{action:string, srcHost:string, domains:Array<string>, destHost:string, dryRun:boolean, force:boolean},uuid=null): Promise<any | undefined> {
-    const {action, srcHost, domains, destHost, dryRun, force} = config;
+  async run(userId,config:{action:string, srcHost:string, domains:Array<string>, destHost:string, map:string, dryRun:boolean, force:boolean},uuid=null): Promise<any | undefined> {
+    const {action, srcHost, domains, destHost, map, dryRun, force} = config;
     let domain = domains?.[0];
     await new Promise<void>(async (resolve) => {
       const cmd = "zfsdom";
-      const cmdOptions = [action, `--domain ${srcHost}:${domain}`, ...destHost ? [destHost, ...!dryRun ? ["--do"] : [], ...!force ? ["--force"] : []] : []];
+      const cmdOptions = [action, `--domain ${srcHost}:${domain}`, ...destHost ? [destHost, ...map ? [`--map ${map}`] : [], ...!dryRun ? ["--do"] : [], ...!force ? ["--force"] : []] : []];
       const terminal = pty.spawn("bash", ["-c", `exec ${cmd} ${cmdOptions.join(" ")}`], {
         name: 'xterm-color',
         cols: 80,

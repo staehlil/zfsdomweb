@@ -7,8 +7,8 @@ class ZfsdomService {
   async getDomains(host) {
     return (await http.get(`/${this.apiName}/domains/${host}`)).data||[];
   }
-  async run(action, srcHost, domains, destHost=null, dryRun=false, force=false) {
-    return (await http.post(`/${this.apiName}/run`,{action, srcHost, domains, destHost, dryRun, force})).data||{};
+  async run(action, srcHost, domains, destHost=null, map= null, dryRun=false, force=false) {
+    return (await http.post(`/${this.apiName}/run`,{action, srcHost, domains, destHost, map, dryRun, force})).data||{};
   }
   async abort(uuid) {
     return (await http.get(`/${this.apiName}/abort/${uuid}`)).data||{};
